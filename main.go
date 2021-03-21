@@ -19,15 +19,19 @@ var (
 	CONNECTIONSTRING = "mongodb://localhost:27017"
 	DB               = "db"
 	COL              = "col"
-	Username 		 = "admin"
-	Password 		 = "pass"
+	USERNAME 		 = "admin"
+	PASSWORD 		 = "pass"
 )
 //GetMongoClient - Return mongodb connection to work with
 func GetMongoClient() (*mongo.Client, error) {
 	//Perform connection creation operation only once.
 	mongoOnce.Do(func() {
 		// Set client options
-		clientOptions := options.Client().ApplyURI(CONNECTIONSTRING)
+		credential := options.Credential{
+			Username: USERNAME,
+			Password: PASSWORD,
+		}
+		clientOptions := options.Client().ApplyURI(CONNECTIONSTRING).SetAuth(credential)
 		// Connect to MongoDB
 		client, err := mongo.Connect(context.TODO(), clientOptions)
 		if err != nil {
