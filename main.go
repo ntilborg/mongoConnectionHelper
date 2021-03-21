@@ -15,7 +15,7 @@ var clientInstanceError error
 var mongoOnce sync.Once
 
 //I have used below constants just to hold required database config's.
-const (
+var (
 	CONNECTIONSTRING = "mongodb://localhost:27017"
 	DB               = "db"
 	COL              = "col"
